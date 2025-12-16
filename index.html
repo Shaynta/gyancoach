@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>www.gyancoach.com</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'Segoe UI', Roboto, Arial, sans-serif;
+      background:#eef2ff;
+      color:#0f172a;
+      overflow-x:hidden;
+    }
+
+    /* PRELOADER */
+    #preloader{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background:#0f172a;display:flex;align-items:center;justify-content:center;
+      z-index:1000;
+    }
+    .loader{
+      width:60px;height:60px;border:6px solid #fff;border-top:6px solid #4f46e5;
+      border-radius:50%;animation:spin 1s linear infinite;
+    }
+    @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+
+    /* Smooth fade animation */
+    @keyframes fadeUp{
+      0%{opacity:0;transform:translateY(20px)}
+      100%{opacity:1;transform:translateY(0)}
+    }
+
+    header{
+      background: url("images/banner_33.jpg");
+      background-size:cover;background-position:center;
+      color:white;text-align:center;padding:100px 16px;
+      box-shadow:0 4px 10px rgba(30, 56, 117, 0.15);
+      animation:fadeUp 0.8s ease forwards;
+      position:relative;
+    }
+    header::after{
+      content:"";position:absolute;top:0;left:0;right:0;bottom:0;
+      background:rgba(0,0,0,0.55);
+    }
+    header .content{position:relative;z-index:2}
+
+    .logo{
+      width:80px;margin:auto;margin-bottom:16px;
+    }
+
+    header h1{font-size:2.2rem;letter-spacing:0.5px;font-weight:800}
+    header p{margin-top:8px;opacity:0.95;font-size:1.1rem}
+
+    nav{
+      display:flex;justify-content:center;gap:12px;
+      background:#0f172a;padding:14px;
+      position:sticky;top:0;z-index:10;
+      animation:fadeUp 0.9s ease forwards;
+    }
+    nav a{
+      color:#e6eef8;text-decoration:none;padding:10px 16px;
+      border-radius:8px;font-weight:600;transition:0.3s;
+    }
+    nav a:hover{background:rgba(255,255,255,0.09);transform:translateY(-3px)}
+
+    .wrap{max-width:1000px;margin:24px auto;padding:0 16px}
+
+    .card{
+      background:white;border-radius:14px;padding:22px;
+      margin-bottom:20px;
+      box-shadow:0 8px 20px rgba(15,23,42,0.08);
+      animation:fadeUp 0.7s ease;
+      transition:0.3s ease;
+    }
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 12px 28px rgba(15,23,42,0.15);
+    }
+    .card h2{margin-bottom:10px;font-size:1.3rem}
+
+    .grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+    }
+
+    ul.courses{list-style:none}
+    ul.courses li{
+      padding:12px;border-radius:10px;margin-bottom:10px;
+      background:linear-gradient(180deg,#f8fafc,#ffffff);
+      border:1px solid #e6eef8;font-weight:600;
+      transition:0.25s;
+    }
+    ul.courses li:hover{
+      background:#f1f5f9;transform:translateX(6px);
+    }
+
+    .contact form{display:flex;flex-direction:column;gap:12px}
+    .contact input, .contact textarea{
+      padding:12px;border-radius:10px;border:1px solid #cbd5e1;
+    }
+
+    .btn{
+      padding:10px 16px;border-radius:10px;background:#4f46e5;
+      color:white;font-weight:700;border:none;cursor:pointer;
+      transition:0.3s;
+    }
+    .btn:hover{background:#4338ca;transform:translateY(-3px)}
+
+    footer{text-align:center;color:#64748b;margin:30px 0}
+
+    /* Responsive */
+    @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+  <!-- PRELOADER -->
+  <div id="preloader"><div class="loader"></div></div>
+
+  <script>
+    window.addEventListener('load',()=>{
+      document.getElementById('preloader').style.display='none';
+    });
+  </script>
+
+  <header>
+    <div class="content">
+      <img src="images/logo.jpg" class="logo" />
+      <h1>জ্ঞানকোচ</h1>
+      <p>জ্ঞানের পথে ব্যক্তিগত প্রশিক্ষক 💡</p>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#home">হোম</a>
+    <a href="#courses">কোর্স</a>
+    <a href="#about">আমাদের সম্পর্কে</a>
+    <a href="#gallery">গ্যালারি</a>
+    <a href="#contact">যোগাযোগ</a>
+    <a href="#AI">জ্ঞানকোচ AI</a>
+    <a href="#login_registion">লগ ইন/রেজিষ্ট্রেশন</a>
+  </nav>
+
+  <main class="wrap">
+
+    <section id="home" class="card">
+      <h2>প্রস্তুতি নাও দেশ সেরা শিক্ষক ও প্রযুক্তির সাথে 🤗🥳</h2>
+      <p>তোমার শেখার যাত্রাকে আরও স্মার্ট, সহজ এবং সুন্দর করতে আমরা আছি তোমার পাশে!</p>
+    </section>
+
+    <section id="courses" class="card">
+      <h2> তোমার জন্য প্রস্তাবিত কোর্সসমূহ</h2>
+      <ul class="courses">
+        <li>H S C ২৭</li>
+        <li>H S C ২৬</li>
+        <li>একাদশ ও দ্বাদশ শ্রেণি</li>
+        <li>নবম  ও দশম শ্রেণি</li>
+        <li>৬ষ্ঠ, ৭ম, ৮ম শ্রেণি</li>
+        <li>প্রথম থেকে পঞ্চম শ্রেণি</li>
+      </ul>
+    </section>
+
+    <div class="grid">
+
+      <div class="card" id="about">
+        <h2>আমাদের সম্পর্কে</h2>
+        <p><b>জ্ঞানকোচ</b> হলো বাংলাদেশের স্কুল ও কলেজ শিক্ষার্থীদের জন্য তৈরি এক বিপ্লবী ব্যক্তিগত প্রশিক্ষণ পোর্টাল। আমরা অভিজ্ঞ শিক্ষাবিদ ও বিশেষজ্ঞদের একটি শক্তিশালী টিম, যারা ঐতিহ্যগত শিক্ষার সকল দুর্বলতা দূর করতে দৃঢ়প্রতিজ্ঞ।<b>আমাদের লক্ষ্য স্পষ্ট:</b>প্রতিটি শিক্ষার্থীর ব্যক্তিগত দুর্বলতা বিশ্লেষণ করে তাকে একজন ব্যক্তিগত 'জ্ঞান প্রশিক্ষক'-এর মতো সেরা গাইডেন্স দেওয়া। সেরা ইন্টারেক্টিভ কন্টেন্ট, লাইভ ক্লাস এবং নিয়মিত মূল্যায়নের মাধ্যমে আমরা শিক্ষার্থীদের সফলতার পথ নিশ্চিত করি। জ্ঞানকোচ শুধু ভালো ফলাফলের প্রতিশ্রুতি দেয় না; এটি উজ্জ্বল ভবিষ্যতের জন্য প্রয়োজনীয় জ্ঞান ও দক্ষতা তৈরি করে। আপনার সফলতার পথে কোনো আপস নয়—জ্ঞানকোচই আপনার একমাত্র নির্ভরযোগ্য সঙ্গী।</p>
+      </div>
+
+      <div class="card contact" id="contact">
+        <h2>📞 যোগাযোগ </h2>
+        <p>ইমেল: info@gyancoach.com<br>ফোন:+৮৮০৯৬৩৮-৯৫৮১৯৯ </p>
+        <form onsubmit="event.preventDefault(); alert('ফর্ম সাবমিট সফল!^.^ জ্ঞানকোচ এর একজন প্রতিনিধি তোমার সাথে অতিদ্রুত যোগাযোগ করবে, ~ধন্যবাদ। ');">
+          <input type="text" placeholder="তোমার নাম ✒️" required />
+          <input type="email" placeholder="ইমেইল ✉️" required />
+          <textarea rows="4" placeholder="বার্তা 📄"></textarea>
+          <button class="btn" type="submit">পাঠিয়ে দিন</button>
+        </form>
+      </div>
+
+      <div class="card" id="gallery">
+        <h2>🎨 গ্যালারি</h2>
+        <p>শীঘ্রই গ্যালারি যুক্ত হবে!</p>
+      </div>
+    </div>
+
+    <footer>
+      © 2025 — GyanCoach Technologies Bangladesh Ltd. All rights reserved.
+    </footer>
+
+  </main>
+
+</body>
+</html>
+
