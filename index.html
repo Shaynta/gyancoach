@@ -1,197 +1,563 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>www.gyancoach.com</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family:'Segoe UI', Roboto, Arial, sans-serif;
-      background:#eef2ff;
-      color:#0f172a;
-      overflow-x:hidden;
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GyanCoach — Future of Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff5e62;
+            --secondary: #ff9966;
+            --bg-light: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-main: #2d3748;
+            --accent: #ffbc00;
+            --bot-bubble: #e2e8f0;
+            --user-bubble: #ff5e62;
+        }
 
-    /* PRELOADER */
-    #preloader{
-      position:fixed;top:0;left:0;width:100%;height:100%;
-      background:#0f172a;display:flex;align-items:center;justify-content:center;
-      z-index:1000;
-    }
-    .loader{
-      width:60px;height:60px;border:6px solid #fff;border-top:6px solid #4f46e5;
-      border-radius:50%;animation:spin 1s linear infinite;
-    }
-    @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-    /* Smooth fade animation */
-    @keyframes fadeUp{
-      0%{opacity:0;transform:translateY(20px)}
-      100%{opacity:1;transform:translateY(0)}
-    }
+        /* CARTOON BUBBLE BACKGROUND */
+        #particles {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #e0f2fe 0%, #fef3c7 100%);
+        }
 
-    header{
-      background: url("images/banner_33.jpg");
-      background-size:cover;background-position:center;
-      color:white;text-align:center;padding:100px 16px;
-      box-shadow:0 4px 10px rgba(30, 56, 117, 0.15);
-      animation:fadeUp 0.8s ease forwards;
-      position:relative;
-    }
-    header::after{
-      content:"";position:absolute;top:0;left:0;right:0;bottom:0;
-      background:rgba(0,0,0,0.55);
-    }
-    header .content{position:relative;z-index:2}
+        /* PRELOADER */
+        #preloader {
+            position: fixed; inset: 0;
+            background: var(--bg-light);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        .loader {
+            width: 60px; height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: cartoonBounce 0.6s ease-in-out infinite alternate;
+        }
+        @keyframes cartoonBounce {
+            0% { transform: translateY(0) scale(1.1, 0.9); }
+            100% { transform: translateY(-40px) scale(0.9, 1.1); border-radius: 40% 40% 50% 50%; }
+        }
 
-    .logo{
-      width:80px;margin:auto;margin-bottom:16px;
-    }
+        /* NAVIGATION */
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 4px solid var(--text-main);
+            display: flex; justify-content: center;
+            gap: 15px; padding: 15px;
+        }
+        nav a {
+            color: var(--text-main); text-decoration: none;
+            font-weight: 700; padding: 10px 22px;
+            border-radius: 20px; transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1rem;
+            border: 2px solid transparent;
+        }
+        nav a:hover, nav a.active {
+            color: white;
+            background: var(--primary);
+            border: 2px solid var(--text-main);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 0 var(--text-main);
+        }
 
-    header h1{font-size:2.2rem;letter-spacing:0.5px;font-weight:800}
-    header p{margin-top:8px;opacity:0.95;font-size:1.1rem}
+        /* HEADER */
+        header {
+            position: relative;
+            min-height: 85vh;
+            display: flex; align-items: center;
+            padding: 40px 20px;
+        }
 
-    nav{
-      display:flex;justify-content:center;gap:12px;
-      background:#0f172a;padding:14px;
-      position:sticky;top:0;z-index:10;
-      animation:fadeUp 0.9s ease forwards;
-    }
-    nav a{
-      color:#e6eef8;text-decoration:none;padding:10px 16px;
-      border-radius:8px;font-weight:600;transition:0.3s;
-    }
-    nav a:hover{background:rgba(255,255,255,0.09);transform:translateY(-3px)}
+        .header-content {
+            position: relative; z-index: 2;
+            max-width: 1150px; margin: auto;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap-reverse; gap: 40px;
+            width: 100%;
+        }
+        .logo-container {
+            flex: 1; display: flex; justify-content: center; min-width: 280px;
+        }
+        .logo {
+            width: 240px; height: 240px; object-fit: cover; 
+            border-radius: 50px;
+            border: 6px solid var(--text-main);
+            box-shadow: 8px 8px 0 var(--text-main);
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-20px) rotate(3deg) scale(1.05); }
+        }
 
-    .wrap{max-width:1000px;margin:24px auto;padding:0 16px}
+        .hero-text { flex: 1.5; min-width: 300px; }
+        .hero-text h1 {
+            font-size: clamp(3rem, 7vw, 4.8rem);
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 4px 4px 0px var(--text-main), -1px -1px 0px var(--text-main), 1px -1px 0px var(--text-main), -1px 1px 0px var(--text-main), 1px 1px 0px var(--text-main);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+        .hero-text p {
+            font-size: 1.35rem; color: #4a5568;
+            max-width: 600px; margin-bottom: 10px;
+            font-weight: 600;
+        }
 
-    .card{
-      background:white;border-radius:14px;padding:22px;
-      margin-bottom:20px;
-      box-shadow:0 8px 20px rgba(15,23,42,0.08);
-      animation:fadeUp 0.7s ease;
-      transition:0.3s ease;
-    }
-    .card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 12px 28px rgba(15,23,42,0.15);
-    }
-    .card h2{margin-bottom:10px;font-size:1.3rem}
+        /* BUTTONS */
+        .btn {
+            margin-top: 25px; padding: 18px 40px;
+            border: 4px solid var(--text-main); border-radius: 25px;
+            background: linear-gradient(135deg, var(--accent), #ffa000);
+            color: var(--text-main); font-weight: 800; font-size: 1.2rem;
+            cursor: pointer; transition: .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 6px 6px 0 var(--text-main);
+            font-family: 'Hind Siliguri', sans-serif;
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 10px 10px 0 var(--text-main);
+            background: linear-gradient(135deg, #ffa000, var(--accent));
+        }
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 2px 2px 0 var(--text-main);
+        }
 
-    .grid{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
-    }
+        /* MAIN WRAPPER */
+        .wrap { max-width: 1150px; margin: 20px auto 60px auto; padding: 0 20px; }
 
-    ul.courses{list-style:none}
-    ul.courses li{
-      padding:12px;border-radius:10px;margin-bottom:10px;
-      background:linear-gradient(180deg,#f8fafc,#ffffff);
-      border:1px solid #e6eef8;font-weight:600;
-      transition:0.25s;
-    }
-    ul.courses li:hover{
-      background:#f1f5f9;transform:translateX(6px);
-    }
+        /* CARDS WITH FIXED REVEAL ANIMATION */
+        .card {
+            background: var(--card-bg);
+            border: 4px solid var(--text-main);
+            border-radius: 35px; padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.08);
+            transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+        }
+        .card:hover {
+            box-shadow: 12px 12px 0 var(--text-main);
+            transform: translateY(-5px);
+        }
+        .card h2 { color: var(--primary); margin-bottom: 20px; font-size: 2rem; font-weight: 800; }
 
-    .contact form{display:flex;flex-direction:column;gap:12px}
-    .contact input, .contact textarea{
-      padding:12px;border-radius:10px;border:1px solid #cbd5e1;
-    }
+        /* REVEAL FIX (Removed space between .reveal and .active) */
+        .reveal { opacity: 0; transform: scale(0.9) translateY(40px); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .reveal.active { opacity: 1; transform: scale(1) translateY(0); }
 
-    .btn{
-      padding:10px 16px;border-radius:10px;background:#4f46e5;
-      color:white;font-weight:700;border:none;cursor:pointer;
-      transition:0.3s;
-    }
-    .btn:hover{background:#4338ca;transform:translateY(-3px)}
+        /* COURSES GRID */
+        ul.courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px; list-style: none; margin-top: 25px;
+        }
+        ul.courses li {
+            padding: 30px 20px; border-radius: 25px;
+            background: #fff;
+            border: 3px solid var(--text-main);
+            text-align: center; font-weight: 700; font-size: 1.2rem;
+            transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
+            box-shadow: 4px 4px 0 var(--text-main);
+        }
+        ul.courses li:hover {
+            background: var(--secondary);
+            color: white; transform: scale(1.08) rotate(2deg);
+            box-shadow: 8px 8px 0 var(--text-main);
+        }
 
-    footer{text-align:center;color:#64748b;margin:30px 0}
+        /* AI SECTION */
+        .ai-box {
+            background: linear-gradient(160deg, #6c5ce7, #a29bfe);
+            border: 4px solid var(--text-main); color: white; border-radius: 40px;
+            padding: 60px 40px; text-align: center;
+            position: relative; overflow: hidden; margin-bottom: 40px;
+            box-shadow: 8px 8px 0 var(--text-main);
+            transition: 0.3s ease;
+        }
+        .ai-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 12px 12px 0 var(--text-main);
+        }
+        .ai-box h2 {
+            color: var(--accent); font-size: 2.2rem; font-weight: 800;
+            text-shadow: 3px 3px 0 var(--text-main);
+        }
+        .ai-box::after {
+            content: "✏️";
+            position: absolute; font-size: 12rem;
+            bottom: -30px; right: -10px; z-index: 0; opacity: 0.2;
+            animation: spinIcon 10s linear infinite;
+        }
+        @keyframes spinIcon { to { transform: rotate(360deg); } }
+        
+        .ai-text {
+            font-size: 1.5rem; margin: 25px auto;
+            min-height: 60px; color: #fff;
+            max-width: 700px; font-weight: 700; position: relative; z-index: 1;
+        }
 
-    /* Responsive */
-    @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:640px){.grid{grid-template-columns:1fr}}
-  </style>
+        /* CHATBOT POPUP */
+        .chat-popup {
+            position: fixed; bottom: 30px; right: 30px;
+            width: 380px; max-height: 85vh;
+            background: #fff; border: 4px solid var(--text-main);
+            border-radius: 30px; display: none; flex-direction: column;
+            box-shadow: 10px 10px 0 var(--text-main);
+            z-index: 1000; overflow: hidden;
+            animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popUp {
+            from { transform: translateY(100px) scale(0.7) rotate(-10deg); opacity: 0; }
+            to { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+        }
+        .chat-header {
+            background: var(--primary);
+            padding: 18px; color: white; display: flex;
+            border-bottom: 4px solid var(--text-main);
+            justify-content: space-between; align-items: center; font-weight: 800; font-size: 1.1rem;
+        }
+        .chat-messages {
+            flex: 1; padding: 20px; overflow-y: auto;
+            height: 320px; display: flex; flex-direction: column;
+            gap: 12px; background: #f7fafc;
+            scroll-behavior: smooth;
+        }
+        .chat-messages::-webkit-scrollbar { width: 6px; }
+        .chat-messages::-webkit-scrollbar-thumb { background: var(--text-main); border-radius: 10px; }
+
+        .msg { padding: 14px 18px; border-radius: 22px; max-width: 85%; font-size: 1rem; line-height: 1.4; font-weight: 600; border: 3px solid var(--text-main); }
+        .bot-msg { background: var(--bot-bubble); color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 3px 3px 0 var(--text-main); }
+        .user-msg { background: var(--user-bubble); color: white; align-self: flex-end; border-bottom-right-radius: 4px; box-shadow: -3px 3px 0 var(--text-main); }
+        
+        /* Suggested Chips */
+        .chat-chips {
+            display: flex; gap: 8px; padding: 0 20px 12px 20px; overflow-x: auto; white-space: nowrap; background: #f7fafc;
+        }
+        .chat-chips::-webkit-scrollbar { display: none; } /* Hide chip scrollbar */
+        .chip {
+            background: #fff; border: 2px solid var(--text-main);
+            color: var(--text-main); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem;
+            cursor: pointer; transition: .2s; font-weight: 700; box-shadow: 2px 2px 0 var(--text-main);
+        }
+        .chip:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 4px 4px 0 var(--text-main); }
+
+        .chat-input-area { padding: 15px 20px; border-top: 4px solid var(--text-main); display: flex; gap: 10px; background: #fff;}
+        .chat-input-area input {
+            flex: 1; background: #edf2f7; border: 3px solid var(--text-main);
+            padding: 12px; border-radius: 18px; color: var(--text-main); outline: none; font-family: inherit; font-size: 1rem; font-weight: 600;
+        }
+        .chat-input-area button { background: var(--accent); border: 3px solid var(--text-main); padding: 0 22px; border-radius: 18px; cursor: pointer; font-weight: 800; color: var(--text-main); transition: .2s; box-shadow: 3px 3px 0 var(--text-main); }
+        .chat-input-area button:hover { transform: translateY(-2px); box-shadow: 5px 5px 0 var(--text-main); }
+        .chat-input-area button:active { transform: translateY(2px); box-shadow: 1px 1px 0 var(--text-main); }
+
+        /* INFO GRID */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+
+        /* FOOTER */
+        footer {
+            text-align: center; padding: 40px 0;
+            color: var(--text-main); font-size: 1rem; font-weight: 700;
+            border-top: 4px solid var(--text-main);
+            margin-top: 40px;
+        }
+
+        /* RESPONSIVE UPDATES */
+        @media (max-width: 768px) {
+            .header-content { text-align: center; justify-content: center; gap: 20px; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .logo { width: 180px; height: 180px; border-radius: 35px; }
+            nav { gap: 5px; padding: 10px 5px; overflow-x: auto; justify-content: flex-start; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+            nav::-webkit-scrollbar { display: none; } /* Hide scrollbar for clean layout */
+            nav a { padding: 8px 14px; font-size: 0.9rem; }
+            .card { padding: 25px 20px; border-radius: 25px; }
+            .chat-popup { width: 90%; right: 5%; bottom: 20px; max-height: 75vh; border-radius: 25px; }
+            .ai-box { padding: 40px 20px; border-radius: 30px; }
+            .ai-text { font-size: 1.2rem; }
+        }
+    </style>
 </head>
+
 <body>
-
-  <!-- PRELOADER -->
-  <div id="preloader"><div class="loader"></div></div>
-
-  <script>
-    window.addEventListener('load',()=>{
-      document.getElementById('preloader').style.display='none';
-    });
-  </script>
-
-  <header>
-    <div class="content">
-      <img src="images/logo.jpg" class="logo" />
-      <h1>জ্ঞানকোচ</h1>
-      <p>জ্ঞানের পথে ব্যক্তিগত প্রশিক্ষক 💡</p>
-    </div>
-  </header>
-
-  <nav>
-    <a href="#home">হোম</a>
-    <a href="#courses">কোর্স</a>
-    <a href="#about">আমাদের সম্পর্কে</a>
-    <a href="#gallery">গ্যালারি</a>
-    <a href="#contact">যোগাযোগ</a>
-    <a href="#AI">জ্ঞানকোচ AI</a>
-    <a href="#login_registion">লগ ইন/রেজিষ্ট্রেশন</a>
-  </nav>
-
-  <main class="wrap">
-
-    <section id="home" class="card">
-      <h2>প্রস্তুতি নাও দেশ সেরা শিক্ষক ও প্রযুক্তির সাথে 🤗🥳</h2>
-      <p>তোমার শেখার যাত্রাকে আরও স্মার্ট, সহজ এবং সুন্দর করতে আমরা আছি তোমার পাশে!</p>
-    </section>
-
-    <section id="courses" class="card">
-      <h2> তোমার জন্য প্রস্তাবিত কোর্সসমূহ</h2>
-      <ul class="courses">
-        <li>H S C ২৭</li>
-        <li>H S C ২৬</li>
-        <li>একাদশ ও দ্বাদশ শ্রেণি</li>
-        <li>নবম  ও দশম শ্রেণি</li>
-        <li>৬ষ্ঠ, ৭ম, ৮ম শ্রেণি</li>
-        <li>প্রথম থেকে পঞ্চম শ্রেণি</li>
-      </ul>
-    </section>
-
-    <div class="grid">
-
-      <div class="card" id="about">
-        <h2>আমাদের সম্পর্কে</h2>
-        <p><b>জ্ঞানকোচ</b> হলো বাংলাদেশের স্কুল ও কলেজ শিক্ষার্থীদের জন্য তৈরি এক বিপ্লবী ব্যক্তিগত প্রশিক্ষণ পোর্টাল। আমরা অভিজ্ঞ শিক্ষাবিদ ও বিশেষজ্ঞদের একটি শক্তিশালী টিম, যারা ঐতিহ্যগত শিক্ষার সকল দুর্বলতা দূর করতে দৃঢ়প্রতিজ্ঞ।<b>আমাদের লক্ষ্য স্পষ্ট </b>প্রতিটি শিক্ষার্থীর ব্যক্তিগত দুর্বলতা বিশ্লেষণ করে তাকে একজন ব্যক্তিগত 'জ্ঞান প্রশিক্ষক'-এর মতো সেরা গাইডেন্স দেওয়া। সেরা ইন্টারেক্টিভ কন্টেন্ট, লাইভ ক্লাস এবং নিয়মিত মূল্যায়নের মাধ্যমে আমরা শিক্ষার্থীদের সফলতার পথ নিশ্চিত করি। জ্ঞানকোচ শুধু ভালো ফলাফলের প্রতিশ্রুতি দেয় না; এটি উজ্জ্বল ভবিষ্যতের জন্য প্রয়োজনীয় জ্ঞান ও দক্ষতা তৈরি করে। আপনার সফলতার পথে কোনো আপস নয়—জ্ঞানকোচই আপনার একমাত্র নির্ভরযোগ্য সঙ্গী।</p>
-      </div>
-
-      <div class="card contact" id="contact">
-        <h2>📞 যোগাযোগ </h2>
-        <p>ইমেল: info@gyancoach.com<br>ফোন:+৮৮০৯৬৩৮-৯৫৮১৯৯ </p>
-        <form onsubmit="event.preventDefault(); alert('ফর্ম সাবমিট সফল!^.^ জ্ঞানকোচ এর একজন প্রতিনিধি তোমার সাথে অতিদ্রুত যোগাযোগ করবে, ~ধন্যবাদ। ');">
-          <input type="text" placeholder="তোমার নাম ✒️" required />
-          <input type="email" placeholder="ইমেইল ✉️" required />
-          <textarea rows="4" placeholder="বার্তা 📄"></textarea>
-          <button class="btn" type="submit">পাঠিয়ে দিন</button>
-        </form>
-      </div>
-
-      <div class="card" id="gallery">
-        <h2>🎨 গ্যালারি</h2>
-        <p>শীঘ্রই গ্যালারি যুক্ত হবে!</p>
-      </div>
+    <canvas id="particles"></canvas>
+    
+    <div id="preloader">
+        <div class="loader"></div>
     </div>
 
-    <footer>
-      © 2025 — GyanCoach Technologies Bangladesh Ltd. All rights reserved.
-    </footer>
+    <nav>
+        <a href="#home" class="nav-link active">🏠 হোম</a>
+        <a href="#courses" class="nav-link">📚 কোর্সসমূহ</a>
+        <a href="#ai" class="nav-link">🤖 AI কোচ</a>
+        <a href="#about" class="nav-link">🎯 লক্ষ্য</a>
+        <a href="#contact" class="nav-link">📞 যোগাযোগ</a>
+    </nav>
 
-  </main>
+    <header id="home" class="reveal">
+        <div class="header-content">
+            <div class="hero-text">
+                <h1>জ্ঞানকোচ</h1>
+                <p>🤖 AI + 🧑‍🏫 শিক্ষক = ভবিষ্যতের স্মার্ট ও মজার শিক্ষা! আমরা তোমার প্রতিটি দুর্বলতা ম্যাজিকের মতো দূর করে দেবো। 🚀</p>
+                <button class="btn" onclick="document.getElementById('courses').scrollIntoView();">অভিযান শুরু করো! ⚡</button>
+            </div>
+            <div class="logo-container">
+                <img src="images/logo.jpg" alt="GyanCoach Logo" class="logo" onerror="this.src='https://placehold.co/240x240/ff5e62/white?text=GyanCoach';">
+            </div>
+        </div>
+    </header>
 
+    <main class="wrap">
+        <section id="courses" class="card reveal">
+            <h2>🔥 ধামাকা কোর্সসমূহ</h2>
+            <ul class="courses">
+                <li onclick="openChatWithQuery('HSC ব্যাচ সম্পর্কে জানতে চাই')">🚀 HSC ২৬ / ২৭ ব্যাচ</li>
+                <li onclick="openChatWithQuery('একাদশ–দ্বাদশ একাডেমিক কোর্স')">📐 একাদশ–দ্বাদশ (একাডেমিক)</li>
+                <li onclick="openChatWithQuery('নবম–দশম ফাউন্ডেশন কোর্স')">🧠 নবম–দশম (ভিত্তি)</li>
+                <li onclick="openChatWithQuery('বিশ্ববিদ্যালয় এডমিশন প্রো কোর্স')">🎓 এডমিশন প্রো (Varsity)</li>
+            </ul>
+        </section>
+
+        <section id="ai" class="ai-box reveal">
+            <h2 style="position:relative; z-index:1;">🤖 জ্ঞানকোচ সুপার AI মেন্টর</h2>
+            <div class="ai-text" id="aiText"></div>
+            <button class="btn" onclick="toggleChat()" style="position:relative; z-index:1; background: var(--accent); color: var(--text-main);">AI বন্ধুর সাথে গল্প করো 💬</button>
+        </section>
+
+        <div class="chat-popup" id="chatBot">
+            <div class="chat-header">
+                <span>🤖 GyanCoach AI বন্ধু</span>
+                <button onclick="toggleChat()" style="background:none; border:none; color:white; cursor:pointer; font-size:2rem; line-height:1; font-weight:bold;">×</button>
+            </div>
+            <div class="chat-messages" id="chatBox">
+                <div class="msg bot-msg">হ্যালো দোস্ত! আমি জ্ঞানকোচ AI। পড়ালেখার যেকোনো কঠিন জিনিস সহজ করতে বা কোর্স সম্পর্কে জানতে আমাকে নির্দ্বিধায় জিজ্ঞেস করো! 🤩</div>
+            </div>
+            
+            <div class="chat-chips">
+                <div class="chip" onclick="handleChipClick('কোর্সসমূহ কি কি?')">📚 কোর্সসমূহ</div>
+                <div class="chip" onclick="handleChipClick('ভর্তি হওয়ার নিয়ম কি?')">⚡ ভর্তি প্রক্রিয়া</div>
+                <div class="chip" onclick="handleChipClick('ডিসকাউন্ট অফার আছে?')">🎁充 অফার</div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="যেকোনো প্রশ্ন টাইপ করো এখানে...">
+                <button onclick="sendMessage()">পাঠাও 🚀</button>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div id="about" class="card reveal">
+                <h2 style="color:var(--secondary)">🎯 আমাদের মিশন</h2>
+                <p>আমরা বিশ্বাস করি প্রতিটি স্টুডেন্ট ইউনিক এবং সবার শেখার স্টাইল আলাদা। জ্ঞানকোচ কার্টুনের মতো মজার ছলে আর AI প্রযুক্তির সাহায্যে তোমাকে গাইড করবে। মুখস্থ বিদ্যা নয়, বরং তোমাকে রিয়েল হিরো বানানোই আমাদের লক্ষ্য! 💪</p>
+            </div>
+
+            <div id="contact" class="card reveal">
+                <h2>📞 হেল্পলাইন ও সাপোর্ট</h2>
+                <p>যেকোনো দরকারে আমাদের টিমকে নক দাও। আমরা সবসময় রেডি তোমার সাহায্যের জন্য! 🌟</p>
+                <p style="margin-top:15px; color:var(--primary); font-weight:800; font-size:1.1rem; letter-spacing: 0.5px;">
+                    📧 info@gyancoach.com<br>
+                    📞 +8809696-208350
+                </p>
+            </div>
+        </div>
+
+        <footer>© 2026 GyanCoach Technologies Bangladesh Ltd. <br>Future of Adaptive & Fun Learning.</footer>
+    </main>
+
+    <script>
+        // Preloader Logic
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById("preloader");
+            setTimeout(() => {
+                preloader.style.opacity = "0";
+                setTimeout(() => preloader.style.visibility = "hidden", 500);
+            }, 800);
+        });
+
+        // Scroll Reveal & Active Navigation Link Logic
+        const sections = document.querySelectorAll('header, section, .grid > div');
+        const navLinks = document.querySelectorAll('nav a');
+        
+        const observerOptions = { threshold: 0.1, rootMargin: "-5% 0px -30% 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        if(link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // AI Typing Effect
+        const typingText = "স্বাগতম বন্ধু! আমি তোমার পার্সোনাল AI মেন্টর। পড়াশোনা নিয়ে কোনো টেনশন আছে? কোন সাবজেক্ট কঠিন লাগে বলো, ম্যাজিকের মতো সহজ করে দিচ্ছি... ✨";
+        let charIndex = 0;
+        const aiTextContainer = document.getElementById("aiText");
+        let isTyping = false;
+
+        function typeWriter() {
+            if (charIndex < typingText.length) {
+                aiTextContainer.innerHTML += typingText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 40);
+            }
+        }
+
+        const aiSection = document.getElementById("ai");
+        const aiObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting && !isTyping) {
+                isTyping = true;
+                setTimeout(typeWriter, 400);
+            }
+        }, {threshold: 0.2});
+        aiObserver.observe(aiSection);
+
+        // CHATBOT LOGIC
+        function toggleChat() {
+            const chat = document.getElementById("chatBot");
+            chat.style.display = (chat.style.display === "none" || chat.style.display === "") ? "flex" : "none";
+            if(chat.style.display === "flex") {
+                document.getElementById("userInput").focus();
+            }
+        }
+
+        function openChatWithQuery(query) {
+            const chat = document.getElementById("chatBot");
+            chat.style.display = "flex";
+            document.getElementById("userInput").value = query;
+            sendMessage();
+        }
+
+        function handleChipClick(text) {
+            document.getElementById("userInput").value = text;
+            sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById("userInput");
+            const chatBox = document.getElementById("chatBox");
+            const text = input.value.trim();
+            if (text === "") return;
+
+            // User Message
+            const userDiv = document.createElement("div");
+            userDiv.className = "msg user-msg";
+            userDiv.textContent = text;
+            chatBox.appendChild(userDiv);
+            
+            input.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Bot Response Simulation
+            setTimeout(() => {
+                const botDiv = document.createElement("div");
+                botDiv.className = "msg bot-msg";
+                const userQuery = text.toLowerCase();
+                
+                if(userQuery.includes("course") || userQuery.includes("কোর্স")) {
+                    botDiv.textContent = "আমাদের কাছে বর্তমানে দারুণ সব HSC ২৬/২৭ ব্যাচ, ফুল একাডেমিক এবং এডমিশন প্রো কোর্স রয়েছে। তুমি কোন ক্লাসে পড়ো বলতো? 😍";
+                } else if(userQuery.includes("ভর্তি") || userQuery.includes("নিয়ম")) {
+                    botDiv.textContent = "ভর্তি হওয়া একদম পানির মতো সহজ! পছন্দের কোর্সে ক্লিক করো অথবা সরাসরি আমাদের হটলাইন +8809696-208350 নাম্বারে একটা কল দাও, সব ব্যবস্থা করে দেবো! 📞";
+                } else if(userQuery.includes("hi") || userQuery.includes("hello") || userQuery.includes("হ্যালো") || userQuery.includes("সালাম")) {
+                    botDiv.textContent = "হ্যালো ফ্রেন্ড! জ্ঞানকোচ AI ওয়ার্ল্ডে তোমাকে স্বাগতম। আজকে কোন পড়াটা ঝটপট মুখস্থ বা বুঝে ফেলতে চাও বলো? 🥳";
+                } else if(userQuery.includes("অফার") || userQuery.includes("ডিসকাউন্ট")) {
+                    botDiv.textContent = "অবশ্যই! নতুন কার্টুন থিম ও নতুন ব্যাচ উপলক্ষে স্পেশাল ডিসকাউন্ট গিফট চলছে। বিস্তারিত জানতে আমাদের নাম্বারে এখনই যোগাযোগ করো! 🎁";
+                } else {
+                    botDiv.textContent = "দারুণ প্রশ্ন দোস্ত! আমি এটা ডায়রিতে নোট করে নিলাম। আমাদের একজন গাইড খুব দ্রুত তোমার সাথে যোগাযোগ করে সব বুঝিয়ে বলবে। থ্যাংক ইউ! 🌟";
+                }
+                
+                chatBox.appendChild(botDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 800);
+        }
+
+        document.getElementById("userInput").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") sendMessage();
+        });
+
+        /* NEW CARTOON 3D BUBBLE ANMATION */
+        const canvas = document.getElementById("particles"),
+              ctx = canvas.getContext("2d");
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        let bubbleCount = window.innerWidth < 768 ? 15 : 35;
+        const cartoonColors = ['rgba(255, 94, 98, 0.25)', 'rgba(255, 188, 0, 0.25)', 'rgba(108, 92, 231, 0.2)', 'rgba(34, 211, 238, 0.25)'];
+        
+        let bubbles = Array.from({length: bubbleCount}, () => ({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight + window.innerHeight,
+            r: Math.random() * 25 + 15,
+            color: cartoonColors[Math.floor(Math.random() * cartoonColors.length)],
+            speed: Math.random() * 1 + 0.5,
+            wobble: Math.random() * 2,
+            wobbleSpeed: Math.random() * 0.02
+        }));
+
+        function drawBubbles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            bubbles.forEach(b => {
+                b.y -= b.speed;
+                b.wobble += b.wobbleSpeed;
+                b.x += Math.sin(b.wobble) * 0.5;
+                
+                if (b.y + b.r < 0) {
+                    b.y = canvas.height + b.r;
+                    b.x = Math.random() * canvas.width;
+                }
+
+                ctx.beginPath();
+                ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                ctx.fillStyle = b.color;
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.arc(b.x - b.r/3, b.y - b.r/3, b.r/4, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+                ctx.fill();
+            });
+            
+            requestAnimationFrame(drawBubbles);
+        }
+        drawBubbles();
+    </script>
 </body>
 </html>
-
-
