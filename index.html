@@ -4,9 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GyanCoach — Future of Learning</title>
+    <title>GyanCoach</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
+    
+    <!-- ========================================== -->
+    <!--          FILE 2 & 3 STYLE (LANDING/LOGIN)   -->
+    <!-- ========================================== -->
+    <style id="style-cartoon">
         :root {
             --primary: #ff5e62;
             --secondary: #ff9966;
@@ -16,17 +20,20 @@
             --accent: #ffbc00;
             --bot-bubble: #e2e8f0;
             --user-bubble: #ff5e62;
+            --success: #2ecc71;
+            --danger: #e74c3c;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
+        .cartoon-body {
             font-family: 'Hind Siliguri', sans-serif;
             color: var(--text-main);
             background-color: var(--bg-light);
             overflow-x: hidden;
             line-height: 1.6;
+            margin: 0; padding: 0; box-sizing: border-box;
         }
+
+        .cartoon-body * { box-sizing: border-box; }
 
         /* CARTOON BUBBLE BACKGROUND */
         #particles {
@@ -71,6 +78,7 @@
             border-radius: 20px; transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             font-size: 1rem;
             border: 2px solid transparent;
+            cursor: pointer;
         }
         nav a:hover, nav a.active {
             color: white;
@@ -166,7 +174,6 @@
         }
         .card h2 { color: var(--primary); margin-bottom: 20px; font-size: 2rem; font-weight: 800; }
 
-        /* REVEAL FIX (Removed space between .reveal and .active) */
         .reveal { opacity: 0; transform: scale(0.9) translateY(40px); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .reveal.active { opacity: 1; transform: scale(1) translateY(0); }
 
@@ -213,7 +220,6 @@
             bottom: -30px; right: -10px; z-index: 0; opacity: 0.2;
             animation: spinIcon 10s linear infinite;
         }
-        @keyframes spinIcon { to { transform: rotate(360deg); } }
         
         .ai-text {
             font-size: 1.5rem; margin: 25px auto;
@@ -230,10 +236,6 @@
             box-shadow: 10px 10px 0 var(--text-main);
             z-index: 1000; overflow: hidden;
             animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes popUp {
-            from { transform: translateY(100px) scale(0.7) rotate(-10deg); opacity: 0; }
-            to { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
         }
         .chat-header {
             background: var(--primary);
@@ -254,11 +256,10 @@
         .bot-msg { background: var(--bot-bubble); color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 3px 3px 0 var(--text-main); }
         .user-msg { background: var(--user-bubble); color: white; align-self: flex-end; border-bottom-right-radius: 4px; box-shadow: -3px 3px 0 var(--text-main); }
         
-        /* Suggested Chips */
         .chat-chips {
             display: flex; gap: 8px; padding: 0 20px 12px 20px; overflow-x: auto; white-space: nowrap; background: #f7fafc;
         }
-        .chat-chips::-webkit-scrollbar { display: none; } /* Hide chip scrollbar */
+        .chat-chips::-webkit-scrollbar { display: none; }
         .chip {
             background: #fff; border: 2px solid var(--text-main);
             color: var(--text-main); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem;
@@ -275,10 +276,8 @@
         .chat-input-area button:hover { transform: translateY(-2px); box-shadow: 5px 5px 0 var(--text-main); }
         .chat-input-area button:active { transform: translateY(2px); box-shadow: 1px 1px 0 var(--text-main); }
 
-        /* INFO GRID */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
 
-        /* FOOTER */
         footer {
             text-align: center; padding: 40px 0;
             color: var(--text-main); font-size: 1rem; font-weight: 700;
@@ -286,109 +285,747 @@
             margin-top: 40px;
         }
 
-        /* RESPONSIVE UPDATES */
+        /* LOGIN PAGE PARTS */
+        .login-wrapper {
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+        .login-card {
+            background: var(--card-bg);
+            border: 4px solid var(--text-main);
+            border-radius: 35px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 8px 8px 0 var(--text-main);
+            transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+            position: relative;
+            z-index: 10;
+            margin: 20px;
+            animation: popUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .login-card:hover {
+            box-shadow: 12px 12px 0 var(--text-main);
+            transform: translateY(-4px);
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 0px var(--text-main);
+            margin-bottom: 5px;
+        }
+        .login-header p {
+            font-weight: 700;
+            color: #718096;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .form-control {
+            width: 100%;
+            background: #edf2f7;
+            border: 3px solid var(--text-main);
+            padding: 14px;
+            border-radius: 18px;
+            color: var(--text-main);
+            outline: none;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .form-control:focus {
+            background: #fff;
+            border-color: var(--primary);
+            box-shadow: 4px 4px 0 var(--text-main);
+        }
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        .form-options a { color: var(--primary); text-decoration: none; }
+        .form-options a:hover { text-decoration: underline; }
+        .checkbox-container { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+        .checkbox-container input { cursor: pointer; accent-color: var(--primary); width: 16px; height: 16px; }
+        
+        .btn-login {
+            width: 100%; padding: 15px; border: 4px solid var(--text-main); border-radius: 20px;
+            background: linear-gradient(135deg, var(--accent), #ffa000); color: var(--text-main);
+            font-weight: 800; font-size: 1.2rem; cursor: pointer; transition: .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 4px 4px 0 var(--text-main); font-family: 'Hind Siliguri', sans-serif; text-align: center;
+        }
+        .btn-login:hover { transform: translateY(-3px); box-shadow: 7px 7px 0 var(--text-main); background: linear-gradient(135deg, #ffa000, var(--accent)); }
+        .btn-login:active { transform: translateY(2px); box-shadow: 1px 1px 0 var(--text-main); }
+        .signup-text { text-align: center; margin-top: 25px; font-weight: 700; font-size: 0.95rem; }
+        .signup-text a { color: var(--primary); text-decoration: none; }
+        .signup-text a:hover { text-decoration: underline; }
+
+        .custom-alert {
+            position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
+            padding: 15px 30px; border: 4px solid var(--text-main); border-radius: 20px;
+            font-weight: 800; font-size: 1.1rem; z-index: 10000; transition: top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .custom-alert.success { background: var(--success); color: white; box-shadow: 0 6px 0 var(--text-main); }
+        .custom-alert.danger { background: var(--danger); color: white; box-shadow: 0 6px 0 var(--text-main); }
+        .custom-alert.show { top: 30px; }
+
         @media (max-width: 768px) {
             .header-content { text-align: center; justify-content: center; gap: 20px; }
             .hero-text h1 { font-size: 2.8rem; }
             .logo { width: 180px; height: 180px; border-radius: 35px; }
-            nav { gap: 5px; padding: 10px 5px; overflow-x: auto; justify-content: flex-start; white-space: nowrap; -webkit-overflow-scrolling: touch; }
-            nav::-webkit-scrollbar { display: none; } /* Hide scrollbar for clean layout */
+            nav { gap: 5px; padding: 10px 5px; overflow-x: auto; justify-content: flex-start; white-space: nowrap; }
+            nav::-webkit-scrollbar { display: none; }
             nav a { padding: 8px 14px; font-size: 0.9rem; }
             .card { padding: 25px 20px; border-radius: 25px; }
             .chat-popup { width: 90%; right: 5%; bottom: 20px; max-height: 75vh; border-radius: 25px; }
             .ai-box { padding: 40px 20px; border-radius: 30px; }
             .ai-text { font-size: 1.2rem; }
         }
+        @media (max-width: 480px) {
+            .login-card { padding: 30px 20px; border-radius: 25px; }
+            .login-header h1 { font-size: 2.1rem; }
+        }
+    </style>
+
+    <!-- ========================================== -->
+    <!--          FILE 1 STYLE (DASHBOARD)          -->
+    <!-- ========================================== -->
+    <style id="style-dashboard">
+        :root {
+            --bg-main: #060913;
+            --sidebar-bg: rgba(17, 24, 39, 0.7);
+            --card-glow: rgba(255, 94, 98, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            
+            --primary-db: #ff5e62;
+            --primary-glow: rgba(255, 94, 98, 0.4);
+            --secondary-db: #00f2fe;
+            --secondary-glow: rgba(0, 242, 254, 0.4);
+            --accent-db: #ffbc00;
+            --success-db: #05f2c7;
+            --danger-db: #ff3860;
+            
+            --text-light: #f3f4f6;
+            --text-muted: #8a99ad;
+        }
+
+        .db-body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background: radial-gradient(circle at 50% 0%, #111a2e 0%, var(--bg-main) 70%);
+            color: var(--text-light);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+        
+        .db-body * { box-sizing: border-box; }
+
+        .db-body ::-webkit-scrollbar { width: 6px; height: 6px; }
+        .db-body ::-webkit-scrollbar-track { background: var(--bg-main); }
+        .db-body ::-webkit-scrollbar-thumb { background: #2d3748; border-radius: 10px; }
+        .db-body ::-webkit-scrollbar-thumb:hover { background: var(--primary-db); }
+
+        aside {
+            width: 290px; background: var(--sidebar-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid var(--card-border); display: flex; flex-direction: column; position: fixed;
+            height: 100vh; z-index: 100; transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .brand {
+            padding: 30px 20px; font-size: 1.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+            color: #fff; text-align: center; background: linear-gradient(45deg, var(--primary-db), var(--secondary-db));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 1px solid var(--card-border);
+            text-shadow: 0 0 30px var(--primary-glow);
+        }
+        .menu-list { list-style: none; padding: 25px 15px; display: flex; flex-direction: column; gap: 12px; }
+        .menu-list li a {
+            color: var(--text-muted); text-decoration: none; padding: 16px 20px; border-radius: 16px;
+            display: flex; align-items: center; gap: 12px; font-weight: 700; transition: all 0.3s ease;
+            border: 1px solid transparent; cursor: pointer;
+        }
+        .menu-list li a:hover, .menu-list li.active a {
+            background: rgba(255, 255, 255, 0.03); color: #fff; border-color: rgba(255, 94, 98, 0.3);
+            box-shadow: inset 0 0 15px rgba(255, 94, 98, 0.05), 0 10px 20px rgba(0,0,0,0.3); transform: translateX(5px);
+        }
+        .menu-list li.active a { border-left: 4px solid var(--primary-db); }
+
+        main { margin-left: 290px; flex: 1; padding: 40px; width: calc(100% - 290px); transition: all 0.4s ease; }
+
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;
+            background: rgba(255,255,255,0.02); padding: 20px 30px; border-radius: 24px;
+            border: 1px solid var(--card-border); backdrop-filter: blur(10px);
+        }
+        .top-bar h1 { font-size: 2rem; font-weight: 800; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .admin-profile {
+            background: linear-gradient(135deg, rgba(255,94,98,0.1), rgba(0,242,254,0.1)); padding: 12px 24px;
+            border-radius: 50px; font-weight: 700; border: 1px solid var(--secondary-db);
+            box-shadow: 0 0 15px var(--secondary-glow); display: flex; align-items: center; gap: 8px;
+        }
+        .pulse-dot {
+            width: 8px; height: 8px; background: var(--success-db); border-radius: 50%;
+            box-shadow: 0 0 10px var(--success-db); animation: pulse 1.5s infinite;
+        }
+        .menu-toggle {
+            display: none; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border);
+            color: white; padding: 12px 20px; border-radius: 14px; font-weight: bold; cursor: pointer;
+        }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-bottom: 45px; }
+        .stat-card {
+            background: rgba(31, 41, 55, 0.4); backdrop-filter: blur(15px); border-radius: 28px; padding: 30px;
+            border: 1px solid var(--card-border); position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .stat-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
+            transform: translateX(-100%); transition: 0.5s;
+        }
+        .stat-card:hover::before { transform: translateX(100%); }
+        .stat-card:hover { transform: translateY(-8px); border-color: rgba(0, 242, 254, 0.4); box-shadow: 0 15px 30px rgba(0, 242, 254, 0.1); }
+        .stat-card h3 { color: var(--text-muted); font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 15px; }
+        .stat-card .value { font-size: 2.5rem; font-weight: 800; color: #fff; font-feature-settings: "tnum"; }
+        .stat-card .trend { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; background: rgba(5, 242, 199, 0.1); color: var(--success-db); border-radius: 10px; font-size: 0.85rem; margin-top: 10px; font-weight: 700; }
+
+        .tab-content { display: none; animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .tab-content.active-tab { display: block; }
+
+        .data-section { display: grid; grid-template-columns: 2fr 1fr; gap: 35px; }
+        .data-card {
+            background: rgba(17, 24, 39, 0.45); backdrop-filter: blur(20px); border-radius: 32px; padding: 35px;
+            border: 1px solid var(--card-border); margin-bottom: 35px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .data-card h2 { font-size: 1.6rem; margin-bottom: 25px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 10px; }
+
+        .db-body table { width: 100%; border-collapse: separate; border-spacing: 0 12px; }
+        .db-body th { color: var(--text-muted); padding: 10px 20px; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; }
+        .db-body td { padding: 20px; background: rgba(255,255,255,0.02); border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); font-weight: 600; color: var(--text-light); }
+        .db-body td:first-child { border-left: 1px solid var(--card-border); border-top-left-radius: 16px; border-bottom-left-radius: 16px; }
+        .db-body td:last-child { border-right: 1px solid var(--card-border); border-top-right-radius: 16px; border-bottom-right-radius: 16px; }
+        .db-body tr:hover td { background: rgba(255,255,255,0.04); border-color: rgba(0, 242, 254, 0.2); }
+
+        .status-badge {
+            padding: 6px 14px; border-radius: 12px; font-size: 0.85rem; font-weight: 800;
+            background: rgba(5, 242, 199, 0.15); color: var(--success-db); box-shadow: 0 0 10px rgba(5, 242, 199, 0.1);
+        }
+        .status-badge.upcoming { background: rgba(255, 188, 0, 0.15); color: var(--accent-db); }
+        .status-badge.unpaid { background: rgba(255, 56, 96, 0.15); color: var(--danger-db); }
+
+        .live-chat-panel { display: flex; flex-direction: column; gap: 15px; max-height: 480px; overflow-y: auto; padding-right: 5px; }
+        .chat-log-item {
+            background: rgba(255, 255, 255, 0.01); padding: 20px; border-radius: 20px; border: 1px solid var(--card-border);
+            position: relative; transition: 0.3s;
+        }
+        .chat-log-item:hover { border-color: rgba(255, 94, 98, 0.3); background: rgba(255,94,98,0.01); }
+        .chat-log-item .user-name { font-weight: 800; color: var(--secondary-db); font-size: 0.95rem; margin-bottom: 6px; display: flex; justify-content: space-between; }
+        .chat-log-item .user-msg { font-size: 0.95rem; color: #d1d5db; line-height: 1.5; }
+
+        .form-group-db { margin-bottom: 25px; }
+        .form-group-db label { display: block; margin-bottom: 10px; font-weight: 700; color: #a5b4fc; font-size: 0.95rem; }
+        .form-control-db {
+            width: 100%; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--card-border);
+            padding: 16px 22px; border-radius: 16px; color: white; font-family: inherit; font-weight: 600;
+            transition: all 0.3s ease; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .form-control-db:focus { outline: none; border-color: var(--secondary-db); box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--primary-db), #e04347);
+            color: white; border: none; padding: 12px 24px; border-radius: 14px; font-weight: 800;
+            cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px var(--primary-glow); font-family: 'Hind Siliguri', sans-serif;
+        }
+        .action-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 94, 98, 0.6); }
+        .btn-success { background: linear-gradient(135deg, #05f2c7, #04d9b2); color: #060913; box-shadow: 0 4px 15px rgba(5, 242, 199, 0.3); }
+        .btn-success:hover { box-shadow: 0 6px 20px rgba(5, 242, 199, 0.5); }
+        .btn-danger { background: linear-gradient(135deg, var(--danger-db), #d62649); box-shadow: 0 4px 15px rgba(255, 56, 96, 0.3); }
+        .btn-danger:hover { box-shadow: 0 6px 20px rgba(255, 56, 96, 0.5); }
+        
+        .chat-input-area-db { display: flex; gap: 12px; margin-top: 20px; }
+
+        .analytics-box {
+            background: rgba(0,0,0,0.2); border-radius: 20px; padding: 20px; border: 1px solid var(--card-border);
+            margin-top: 15px; display: flex; align-items: flex-end; justify-content: space-between; height: 120px;
+        }
+        .bar { width: 12%; background: linear-gradient(to top, var(--primary-db), var(--secondary-db)); border-radius: 6px; height: 30px; transition: height 1s ease; }
+
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(5, 242, 199, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(5, 242, 199, 0); } 100% { box-shadow: 0 0 0 0 rgba(5, 242, 199, 0); } }
+        @keyframes scaleUp { from { opacity: 0; transform: scale(0.98) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        @media (max-width: 1300px) { .data-section { grid-template-columns: 1fr; } }
+        @media (max-width: 992px) {
+            aside { transform: translateX(-100%); }
+            aside.open { transform: translateX(0); }
+            main { margin-left: 0; width: 100%; padding: 25px; }
+            .menu-toggle { display: block; }
+            .top-bar { flex-direction: row; gap: 15px; }
+        }
+        @media (max-width: 576px) {
+            .top-bar { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .admin-profile { width: 100%; justify-content: center; }
+        }
     </style>
 </head>
 
-<body>
+<body class="cartoon-body" id="master-body">
+
+    <!-- GLOBAL BUBBLE BACKGROUND & PRELOADER FOR CARTOON PAGES -->
     <canvas id="particles"></canvas>
-    
     <div id="preloader">
         <div class="loader"></div>
     </div>
 
-    <nav>
-        <a href="#home" class="nav-link active">🏠 হোম</a>
-        <a href="#courses" class="nav-link">📚 কোর্সসমূহ</a>
-        <a href="#ai" class="nav-link">🤖 AI কোচ</a>
-        <a href="#about" class="nav-link">🎯 লক্ষ্য</a>
-        <a href="#contact" class="nav-link">📞 যোগাযোগ</a>
-    </nav>
+    <!-- ======================================================= -->
+    <!--                   PAGE 1: LANDING PAGE                  -->
+    <!-- ======================================================= -->
+    <div id="page-landing">
+        <nav>
+            <a onclick="scrollToSection('home')" class="nav-link active">🏠 হোম</a>
+            <a onclick="scrollToSection('courses-sec')" class="nav-link">📚 কোর্সসমূহ</a>
+            <a onclick="scrollToSection('ai')" class="nav-link">🤖 AI কোচ</a>
+            <a onclick="scrollToSection('about')" class="nav-link">🎯 লক্ষ্য</a>
+            <a onclick="scrollToSection('contact')" class="nav-link">📞 যোগাযোগ</a>
+            <a onclick="showPage('login')" style="background: var(--accent); color: var(--text-main); border: 2px solid var(--text-main); box-shadow: 0 3px 0 var(--text-main);">🔐 লগইন</a>
+        </nav>
 
-    <header id="home" class="reveal">
-        <div class="header-content">
-            <div class="hero-text">
-                <h1>জ্ঞানকোচ</h1>
-                <p>🤖 AI + 🧑‍🏫 শিক্ষক = ভবিষ্যতের স্মার্ট ও মজার শিক্ষা! আমরা তোমার প্রতিটি দুর্বলতা ম্যাজিকের মতো দূর করে দেবো। 🚀</p>
-                <button class="btn" onclick="document.getElementById('courses').scrollIntoView();">অভিযান শুরু করো! ⚡</button>
+        <header id="home" class="reveal">
+            <div class="header-content">
+                <div class="hero-text">
+                    <h1>জ্ঞানকোচ</h1>
+                    <p>🤖 AI + 🧑‍🏫 শিক্ষক = ভবিষ্যতের স্মার্ট ও মজার শিক্ষা! আমরা তোমার প্রতিটি দুর্বলতা ম্যাজিকের মতো দূর করে দেবো। 🚀</p>
+                    <button class="btn" onclick="scrollToSection('courses-sec')">অভিযান শুরু করো! ⚡</button>
+                </div>
+                <div class="logo-container">
+                    <img src="images/logo.jpg" alt="GyanCoach Logo" class="logo" onerror="this.src='https://placehold.co/240x240/ff5e62/white?text=GyanCoach';">
+                </div>
             </div>
-            <div class="logo-container">
-                <img src="images/logo.jpg" alt="GyanCoach Logo" class="logo" onerror="this.src='https://placehold.co/240x240/ff5e62/white?text=GyanCoach';">
+        </header>
+
+        <main class="wrap">
+            <section id="courses-sec" class="card reveal">
+                <h2>🔥 ধামাকা কোর্সসমূহ</h2>
+                <ul class="courses">
+                    <li onclick="openChatWithQuery('HSC ব্যাচ সম্পর্কে জানতে চাই')">🚀 HSC ২৬ / ২৭ ব্যাচ</li>
+                    <li onclick="openChatWithQuery('একাদশ–দ্বাদশ একাডেমিক কোর্স')">📐 একাদশ–দ্বাদশ (একাডেমিক)</li>
+                    <li onclick="openChatWithQuery('নবম–দশম ফাউন্ডেশন কোর্স')">🧠 নবম–দশম (ভিত্তি)</li>
+                    <li onclick="openChatWithQuery('বিশ্ববিদ্যালয় এডমিশন প্রো কোর্স')">🎓 এডমিশন প্রো (Varsity)</li>
+                </ul>
+            </section>
+
+            <section id="ai" class="ai-box reveal">
+                <h2 style="position:relative; z-index:1;">🤖 জ্ঞানকোচ সুপার AI মেন্টর</h2>
+                <div class="ai-text" id="aiText"></div>
+                <button class="btn" onclick="toggleChat()" style="position:relative; z-index:1; background: var(--accent); color: var(--text-main);">AI বন্ধুর সাথে গল্প করো 💬</button>
+            </section>
+
+            <div class="chat-popup" id="chatBot">
+                <div class="chat-header">
+                    <span>🤖 GyanCoach AI বন্ধু</span>
+                    <button onclick="toggleChat()" style="background:none; border:none; color:white; cursor:pointer; font-size:2rem; line-height:1; font-weight:bold;">×</button>
+                </div>
+                <div class="chat-messages" id="chatBox">
+                    <div class="msg bot-msg">হ্যালো দোস্ত! আমি জ্ঞানকোচ AI। পড়ালেখার যেকোনো কঠিন জিনিস সহজ করতে বা কোর্স সম্পর্কে জানতে আমাকে নির্দ্বিধায় জিজ্ঞেস করো! 🤩</div>
+                </div>
+                
+                <div class="chat-chips">
+                    <div class="chip" onclick="handleChipClick('কোর্সসমূহ কি কি?')">📚 কোর্সসমূহ</div>
+                    <div class="chip" onclick="handleChipClick('ভর্তি হওয়ার নিয়ম কি?')">⚡ ভর্তি প্রক্রিয়া</div>
+                    <div class="chip" onclick="handleChipClick('ডিসকাউন্ট অফার আছে?')">🎁 অফার</div>
+                </div>
+
+                <div class="chat-input-area">
+                    <input type="text" id="userInput" placeholder="যেকোনো প্রশ্ন টাইপ করো এখানে...">
+                    <button onclick="sendMessage()">পাঠাও 🚀</button>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div id="about" class="card reveal">
+                    <h2 style="color:var(--secondary)">🎯 আমাদের মিশন</h2>
+                    <p>আমরা believe করি প্রতিটি স্টুডেন্ট ইউনিক এবং সবার শেখার স্টাইল আলাদা। জ্ঞানকোচ কার্টুনের মতো মজার ছলে আর AI প্রযুক্তির সাহায্যে তোমাকে গাইড করবে। মুখস্থ বিদ্যা নয়, বরং তোমাকে রিয়েল হিরো বানানোই আমাদের লক্ষ্য! 💪</p>
+                </div>
+
+                <div id="contact" class="card reveal">
+                    <h2>📞 হেল্পলাইন ও সাপোর্ট</h2>
+                    <p>যেকোনো দরকারে আমাদের টিমকে নক দাও। আমরা সবসময় রেডি তোমার সাহায্যের জন্য! 🌟</p>
+                    <p style="margin-top:15px; color:var(--primary); font-weight:800; font-size:1.1rem; letter-spacing: 0.5px;">
+                        📧 info@gyancoach.com<br>
+                        📞 +8809696-208350
+                    </p>
+                </div>
+            </div>
+
+            <footer>© 2026 GyanCoach Technologies Bangladesh Ltd. <br>Future of Adaptive & Fun Learning.</footer>
+        </main>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <!--                     PAGE 2: LOGIN PAGE                  -->
+    <!-- ======================================================= -->
+    <div id="page-login" style="display: none;">
+        <div id="alertSuccess" class="custom-alert success">লগইন সফল হয়েছে দোস্ত! জ্ঞানকোচ ড্যাশবোর্ডে তোমাকে স্বাগতম। 🥳</div>
+        <div id="alertDanger" class="custom-alert danger">ভুল ইমেইল বা পাসওয়ার্ড! আবার চেষ্টা করো দোস্ত। ❌</div>
+
+        <div style="padding: 20px;">
+            <button class="btn" onclick="showPage('landing')" style="margin-bottom: 10px; padding: 10px 20px; font-size: 1rem;">⬅️ হোমে ফিরে যাও</button>
+        </div>
+
+        <div class="login-wrapper">
+            <div class="login-card">
+                <div class="login-header">
+                    <h1>জ্ঞানকোচ</h1>
+                    <p>ভবিষ্যতের স্মার্ট লার্নিং ওয়ার্ল্ডে স্বাগত! 🚀</p>
+                </div>
+
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="email">ইমেইল বা ফোন নাম্বার</label>
+                        <input type="text" id="email" class="form-control" placeholder="example@gmail.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">পাসওয়ার্ড</label>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox"> মনে রেখো
+                        </label>
+                        <a href="#">পাসওয়ার্ড ভুলে গেছ?</a>
+                    </div>
+
+                    <button type="submit" class="btn-login">লগইন করো ⚡</button>
+                </form>
+
+                <p class="signup-text">নতুন অ্যাকাউন্ট খুলতে চাও? <a href="#">রেজিস্ট্রেশন করো</a></p>
             </div>
         </div>
-    </header>
+    </div>
 
-    <main class="wrap">
-        <section id="courses" class="card reveal">
-            <h2>🔥 ধামাকা কোর্সসমূহ</h2>
-            <ul class="courses">
-                <li onclick="openChatWithQuery('HSC ব্যাচ সম্পর্কে জানতে চাই')">🚀 HSC ২৬ / ২৭ ব্যাচ</li>
-                <li onclick="openChatWithQuery('একাদশ–দ্বাদশ একাডেমিক কোর্স')">📐 একাদশ–দ্বাদশ (একাডেমিক)</li>
-                <li onclick="openChatWithQuery('নবম–দশম ফাউন্ডেশন কোর্স')">🧠 নবম–দশম (ভিত্তি)</li>
-                <li onclick="openChatWithQuery('বিশ্ববিদ্যালয় এডমিশন প্রো কোর্স')">🎓 এডমিশন প্রো (Varsity)</li>
+
+    <!-- ======================================================= -->
+    <!--                   PAGE 3: CORE DASHBOARD                -->
+    <!-- ======================================================= -->
+    <div id="page-dashboard" style="display: none; width: 100%;">
+        <!-- SIDEBAR CONTROL PANEL -->
+        <aside id="sidebar">
+            <div class="brand">🌌 GyanCoach Pro</div>
+            <ul class="menu-list">
+                <li class="menu-item active" onclick="switchTab('dashboard', this)"><a>📊 কোর হাব ড্যাশবোর্ড</a></li>
+                <li class="menu-item" onclick="switchTab('courses', this)"><a>📚 কোয়ান্টাম курс ম্যাট্রিক্স</a></li>
+                <li class="menu-item" onclick="switchTab('users', this)"><a>👥 নিউরাল ইউজার ডাটা</a></li>
+                <li class="menu-item" onclick="switchTab('chat', this)"><a>💬 লাইভ টেলিপ্যাথি চ্যাট</a></li>
+                <li class="menu-item" onclick="switchTab('settings', this)"><a>⚙️ কোর সিস্টেম কনফিগ</a></li>
+                <li class="menu-item" onclick="showPage('landing')"><a style="color: var(--danger-db);">🚪 লগআউট করুন</a></li>
             </ul>
-        </section>
+        </aside>
 
-        <section id="ai" class="ai-box reveal">
-            <h2 style="position:relative; z-index:1;">🤖 জ্ঞানকোচ সুপার AI মেন্টর</h2>
-            <div class="ai-text" id="aiText"></div>
-            <button class="btn" onclick="toggleChat()" style="position:relative; z-index:1; background: var(--accent); color: var(--text-main);">AI বন্ধুর সাথে গল্প করো 💬</button>
-        </section>
-
-        <div class="chat-popup" id="chatBot">
-            <div class="chat-header">
-                <span>🤖 GyanCoach AI বন্ধু</span>
-                <button onclick="toggleChat()" style="background:none; border:none; color:white; cursor:pointer; font-size:2rem; line-height:1; font-weight:bold;">×</button>
-            </div>
-            <div class="chat-messages" id="chatBox">
-                <div class="msg bot-msg">হ্যালো দোস্ত! আমি জ্ঞানকোচ AI। পড়ালেখার যেকোনো কঠিন জিনিস সহজ করতে বা কোর্স সম্পর্কে জানতে আমাকে নির্দ্বিধায় জিজ্ঞেস করো! 🤩</div>
-            </div>
-            
-            <div class="chat-chips">
-                <div class="chip" onclick="handleChipClick('কোর্সসমূহ কি কি?')">📚 কোর্সসমূহ</div>
-                <div class="chip" onclick="handleChipClick('ভর্তি হওয়ার নিয়ম কি?')">⚡ ভর্তি প্রক্রিয়া</div>
-                <div class="chip" onclick="handleChipClick('ডিসকাউন্ট অফার আছে?')">🎁充 অফার</div>
+        <!-- MAIN INTERACTIVE MONITOR -->
+        <main>
+            <div class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">⚡ মেনু কনট্রোল</button>
+                <div>
+                    <h1 id="page-title">কোর হাব ড্যাশবোর্ড</h1>
+                    <p style="color: var(--text-muted); font-weight: 600; margin-top: 4px;">সেন্ট্রাল রিঅ্যাক্টর মনিটরিং ও কন্ট্রোল গেটওয়ে</p>
+                </div>
+                <div class="admin-profile"><span class="pulse-dot"></span> 👑 সুপ্রীম মেন্টর</div>
             </div>
 
-            <div class="chat-input-area">
-                <input type="text" id="userInput" placeholder="যেকোনো প্রশ্ন টাইপ করো এখানে...">
-                <button onclick="sendMessage()">পাঠাও 🚀</button>
+            <!-- LIVE COUNTERS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>সক্রিয় ছাত্র-ছাত্রী</h3>
+                    <div class="value" id="activeUsers">১২,৪৫০</div>
+                    <div class="trend">⬆️ লাইভ গ্রোথ +১৮%</div>
+                </div>
+                <div class="stat-card">
+                    <h3>টোটাল ম্যাট্রিক্স এনরোলমেন্ট</h3>
+                    <div class="value" id="totalEnrollments">৪,৮৯০</div>
+                    <div class="trend" style="color: var(--secondary-db); background: rgba(0,242,254,0.1);">🔥 হট: ফিজিক্স ধামাকা</div>
+                </div>
+                <div class="stat-card">
+                    <h3>AI কোয়ান্টাম সেশন</h3>
+                    <div class="value" id="aiSessions">৮৪২</div>
+                    <div class="trend" style="color: var(--accent-db); background: rgba(255,188,0,0.1);">⚡ লেটেন্সি: ০.২s</div>
+                </div>
+                <div class="stat-card">
+                    <h3>NET ক্যাশ ফ্লো (চলতি মাস)</h3>
+                    <div class="value">৳৩,৪৫,০০০</div>
+                    <div class="trend">🚀 টার্গেট ৮৫% ডান</div>
+                </div>
             </div>
-        </div>
 
-        <div class="grid">
-            <div id="about" class="card reveal">
-                <h2 style="color:var(--secondary)">🎯 আমাদের মিশন</h2>
-                <p>আমরা বিশ্বাস করি প্রতিটি স্টুডেন্ট ইউনিক এবং সবার শেখার স্টাইল আলাদা। জ্ঞানকোচ কার্টুনের মতো মজার ছলে আর AI প্রযুক্তির সাহায্যে তোমাকে গাইড করবে। মুখস্থ বিদ্যা নয়, বরং তোমাকে রিয়েল হিরো বানানোই আমাদের লক্ষ্য! 💪</p>
+            <!-- ================= TAB: DASHBOARD ================= -->
+            <div id="dashboard" class="tab-content active-tab">
+                <div class="data-section">
+                    <div class="data-card">
+                        <h2>📚 চলমান курс ও লাইভ ইঞ্জিন</h2>
+                        <div style="overflow-x: auto;">
+                            <table id="dashboard-course-table">
+                                <thead>
+                                    <tr>
+                                        <th>কোর্সের মডিউল</th>
+                                        <th>এনরোলমেন্ট</th>
+                                        <th>ইঞ্জিন স্ট্যাটাস</th>
+                                        <th>কন্ট্রোল</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>🚀 HSC ২৬ / ২৭ ফিজিক্স ধামাকা ব্যাচ</td>
+                                        <td>১,৮২০ জন</td>
+                                        <td><span class="status-badge">সক্রিয়</span></td>
+                                        <td><button class="action-btn" onclick="switchTab('courses')">ম্যানেজ</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>🧪 একাদশ–দ্বাদশ কেমিস্ট্রি ল্যাব প্রো</td>
+                                        <td>১,৪৫০ জন</td>
+                                        <td><span class="status-badge">সক্রিয়</span></td>
+                                        <td><button class="action-btn" onclick="switchTab('courses')">Mng</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="data-card">
+                        <h2>📊 ট্রাফিক অ্যানালিটিক্স ও চ্যাট</h2>
+                        <div class="analytics-box">
+                            <div class="bar" style="height: 40%;"></div>
+                            <div class="bar" style="height: 65%;"></div>
+                            <div class="bar" style="height: 50%;"></div>
+                            <div class="bar" style="height: 85%;"></div>
+                            <div class="bar" style="height: 70%;"></div>
+                            <div class="bar" style="height: 95%;"></div>
+                        </div>
+                        <div class="live-chat-panel" id="dashboard-chat-log" style="margin-top: 20px;">
+                            <div class="chat-log-item">
+                                <div class="user-name">রাফসান আহমেদ (HSC '26) <span style="font-size:0.75rem; color:var(--text-muted)">১মি আগে</span></div>
+                                <div class="user-msg">"ভাইয়া, ফিজিক্স কোর্সে কি কিস্তিতে পেমেন্ট করা যাবে?"</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div id="contact" class="card reveal">
-                <h2>📞 হেল্পলাইন ও সাপোর্ট</h2>
-                <p>যেকোনো দরকারে আমাদের টিমকে নক দাও। আমরা সবসময় রেডি তোমার সাহায্যের জন্য! 🌟</p>
-                <p style="margin-top:15px; color:var(--primary); font-weight:800; font-size:1.1rem; letter-spacing: 0.5px;">
-                    📧 info@gyancoach.com<br>
-                    📞 +8809696-208350
-                </p>
+            <!-- ================= TAB: COURSES ================= -->
+            <div id="courses" class="tab-content">
+                <div class="data-section">
+                    <div class="data-card">
+                        <h2>✨ নতুন курс ডেপ্লয় করুন</h2>
+                        <form id="course-form" onsubmit="addCourse(event)">
+                            <div class="form-group-db">
+                                <label style="display: block; margin-bottom: 10px; font-weight: 700; color: #a5b4fc; font-size: 0.95rem;">কোর্সের ব্র্যান্ড নেম</label>
+                                <input type="text" id="courseName" class="form-control-db" placeholder="উদা: আইসিটি কোয়ান্টাম হ্যাকিং" required>
+                            </div>
+                            <div class="form-group-db">
+                                <label style="display: block; margin-bottom: 10px; font-weight: 700; color: #a5b4fc; font-size: 0.95rem;">বেস স্টুডেন্ট ক্যাপাসিটি</label>
+                                <input type="number" id="courseEnrollment" class="form-control-db" placeholder="উদা: ৫০০" required>
+                            </div>
+                            <div class="form-group-db">
+                                <label style="display: block; margin-bottom: 10px; font-weight: 700; color: #a5b4fc; font-size: 0.95rem;">ইঞ্জিনিয়ারিং স্ট্যাটাস</label>
+                                <select id="courseStatus" class="form-control-db" style="background: #111827;">
+                                    <option value="চলমান">চলমান (Active)</option>
+                                    <option value="আপকামিং">আপকামিং (Beta)</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="action-btn btn-success">🚀 মডিউল ডেপ্লয় করুন</button>
+                        </form>
+                    </div>
+
+                    <div class="data-card">
+                        <h2>📚 গ্লোবাল курс ডাটাবেজ</h2>
+                        <div style="overflow-x: auto;">
+                            <table id="main-course-table">
+                                <thead>
+                                    <tr>
+                                        <th>মডিউল</th>
+                                        <th>স্টুডেন্ট</th>
+                                        <th>স্ট্যাটাস</th>
+                                        <th>কমান্ড</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>🚀 HSC ২৬ / ২৭ ফিজিক্স ধামাকা ব্যাচ</td>
+                                        <td>১,৮২০ জন</td>
+                                        <td><span class="status-badge">চলমান</span></td>
+                                        <td><button class="action-btn btn-danger" onclick="deleteRow(this)">রিমুভ</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>🧪 একাদশ–দ্বাদশ কেমিস্ট্রি ল্যাব প্রো</td>
+                                        <td>১,৪৫০ জন</td>
+                                        <td><span class="status-badge">চলমান</span></td>
+                                        <td><button class="action-btn btn-danger" onclick="deleteRow(this)">রিমুভ</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>📜 হিস্ট্রি অ্যান্ড টাইম ট্রাভেল স্পেশাল</td>
+                                        <td>৭২০ জন</td>
+                                        <td><span class="status-badge upcoming">আপকামিং</span></td>
+                                        <td><button class="action-btn btn-danger" onclick="deleteRow(this)">রিমুভ</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <footer>© 2026 GyanCoach Technologies Bangladesh Ltd. <br>Future of Adaptive & Fun Learning.</footer>
-    </main>
+            <!-- ================= TAB: USERS ================= -->
+            <div id="users" class="tab-content">
+                <div class="data-card">
+                    <h2>👥 নিউরাল ইউজার কোর ডাটাবেজ</h2>
+                    <div class="search-box" style="margin-bottom: 25px;">
+                        <input type="text" id="userSearch" class="form-control-db" placeholder="🔍 স্টুডেন্টের নাম, ব্যাচ বা আইডি টাইপ করুন..." onkeyup="filterUsers()">
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table id="user-table">
+                            <thead>
+                                <tr>
+                                    <th>স্টুডেন্ট প্রোফাইল</th>
+                                    <th>টার্গেট ব্যাচ</th>
+                                    <th>কমিউনিকেশন চ্যানেল</th>
+                                    <th>পেমেন্ট ম্যাট্রিক্স</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>রাফসান আহমেদ</td>
+                                    <td>HSC '26</td>
+                                    <td>rafsan@gmail.com</td>
+                                    <td><span class="status-badge">পেইড</span></td>
+                                </tr>
+                                <tr>
+                                    <td>তানজিला আফরিন</td>
+                                    <td>SSC '27</td>
+                                    <td>tanjila@yahoo.com</td>
+                                    <td><span class="status-badge">পেইড</span></td>
+                                </tr>
+                                <tr>
+                                    <td>ইশতিয়াক ইভান</td>
+                                    <td>Admission '26</td>
+                                    <td>ivan.edu@gmail.com</td>
+                                    <td><span class="status-badge unpaid">বাকি</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
+            <!-- ================= TAB: CHAT ================= -->
+            <div id="chat" class="tab-content">
+                <div class="data-section">
+                    <div class="data-card">
+                        <h2>💬 লাইভ টেলিপ্যাথি রিয়েল-টাইম হাব</h2>
+                        <div class="live-chat-panel" id="main-chat-log" style="max-height: 380px;">
+                            <div class="chat-log-item">
+                                <div class="user-name">রাফসান আহমেদ (HSC '26)</div>
+                                <div class="user-msg">"ভাইয়া, ফিজিক্স কোর্সে কি কিস্তিতে পেমেন্ট করা যাবে?"</div>
+                            </div>
+                            <div class="chat-log-item">
+                                <div class="user-name">তানজিলা আফরিন (SSC '27)</div>
+                                <div class="user-msg">"বায়োলজির কোষ বিভাজনের ৩D অ্যানিমেশন ক্লাসটা জোস ছিল!"</div>
+                            </div>
+                        </div>
+                        <div class="chat-input-area-db">
+                            <input type="text" id="adminReplyInput" class="form-control-db" placeholder="মডারেটর রেসপন্স টাইপ করুন...">
+                            <button class="action-btn" onclick="sendAdminReply()">রিলিজ</button>
+                        </div>
+                    </div>
+                    <div class="data-card">
+                        <h2>⚡ ইন্টেলিজেন্ট ম্যাক্রো টেমপ্লেটস</h2>
+                        <p style="color:var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">ওয়ান-ক্লিক অটোমেটেড রিয়েল-টাইম রিপ্লাই ব্রডকাস্ট:</p>
+                        <button class="action-btn" style="width: 100%; margin-bottom: 12px; text-align: left;" onclick="triggerTemplate('পেমেন্ট গেটওয়েতে সমস্যা হলে অনুগ্রহ করে আমাদের হটলাইন নাম্বারে ট্রানজেকশন আইডি সহ মেসেজ দিন।')">💳 পেমেন্ট গেটওয়ে ইস্যু ফিক্স</button>
+                        <button class="action-btn" style="width: 100%; text-align: left; background: linear-gradient(135deg, var(--secondary-db), #00c6ff); color:#060913;" onclick="triggerTemplate('সার্ভার অপটিমাইজেশন চলছে, ২ মিনিট পর আপনার ড্যাশবোর্ড চেক করুন।')">⚙️ ইনস্ট্যান্ট সার্ভার বুস্ট টেমপ্লেট</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= TAB: SETTINGS ================= -->
+            <div id="settings" class="tab-content">
+                <div class="data-card" style="max-width: 650px;">
+                    <h2>⚙️ কোর সিস্টেম কনফিগারেশন</h2>
+                    <div class="form-group-db">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 700; color: #a5b4fc; font-size: 0.95rem;">নোড / গেটওয়ে আইডেন্টিফায়ার</label>
+                        <input type="text" class="form-control-db" value="GyanCoach Alpha-Server">
+                    </div>
+                    <div class="form-group-db">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 700; color: #a5b4fc; font-size: 0.95rem;">AI সিন্যাপ্স রিয়াকশন মোড</label>
+                        <select class="form-control-db" style="background: #111827; width: 100%; border: 1px solid var(--card-border); padding: 16px 22px; border-radius: 16px; color: white;">
+                            <option>কোয়ান্টাম স্পীড (০.২ সেকেন্ড লেটেন্সি)</option>
+                            <option>হাইбриড ব্যালেন্সড প্রসেসিং</option>
+                            <option>ডিপ নিউরাল অ্যানালাইসিস</option>
+                        </select>
+                    </div>
+                    <div class="form-group-db" style="display: flex; align-items: center; gap: 10px;">
+                        <label style="margin-bottom: 0; color: #a5b4fc; font-weight: 700;">গ্লোবাল মেইনটেন্যান্স ফিল্ড লক:</label>
+                        <input type="checkbox" id="maintenance" style="transform: scale(1.4); cursor: pointer;">
+                    </div>
+                    <button class="action-btn btn-success" onclick="alert('সেন্ট্রাল ডাটাবেজে কনফিগারেশন সেভ হয়েছে!')">💾 কনফিগ সেভ করুন</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ======================================================= -->
+    <!--                  GLOBAL JAVASCRIPT ENGINE                -->
+    <!-- ======================================================= -->
     <script>
-        // Preloader Logic
+        // PAGE ROUTING LOGIC (LANDING -> LOGIN -> DASHBOARD)
+        function showPage(pageId) {
+            document.getElementById('page-landing').style.display = 'none';
+            document.getElementById('page-login').style.display = 'none';
+            document.getElementById('page-dashboard').style.display = 'none';
+
+            // Reset body classes/styles based on context
+            const masterBody = document.getElementById('master-body');
+            const particles = document.getElementById('particles');
+
+            if (pageId === 'landing') {
+                document.getElementById('page-landing').style.display = 'block';
+                masterBody.className = 'cartoon-body';
+                particles.style.display = 'block';
+            } else if (pageId === 'login') {
+                document.getElementById('page-login').style.display = 'block';
+                masterBody.className = 'cartoon-body';
+                particles.style.display = 'block';
+            } else if (pageId === 'dashboard') {
+                document.getElementById('page-dashboard').style.display = 'flex';
+                masterBody.className = 'db-body';
+                particles.style.display = 'none';
+            }
+            window.scrollTo(0,0);
+        }
+
+        // SMOOTH SCROLL FOR LANDING PAGE
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // PRELOADER ENGINE
         window.addEventListener('load', () => {
             const preloader = document.getElementById("preloader");
             setTimeout(() => {
@@ -397,31 +1034,19 @@
             }, 800);
         });
 
-        // Scroll Reveal & Active Navigation Link Logic
+        // SCROLL REVEAL OBSERVER
         const sections = document.querySelectorAll('header, section, .grid > div');
-        const navLinks = document.querySelectorAll('nav a');
-        
         const observerOptions = { threshold: 0.1, rootMargin: "-5% 0px -30% 0px" };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    
-                    const id = entry.target.getAttribute('id');
-                    navLinks.forEach(link => {
-                        if(link.getAttribute('href') === `#${id}`) {
-                            link.classList.add('active');
-                        } else {
-                            link.classList.remove('active');
-                        }
-                    });
                 }
             });
         }, observerOptions);
-
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // AI Typing Effect
+        // LANDING PAGE: AI TYPING EFFECT
         const typingText = "স্বাগতম বন্ধু! আমি তোমার পার্সোনাল AI মেন্টর। পড়াশোনা নিয়ে কোনো টেনশন আছে? কোন সাবজেক্ট কঠিন লাগে বলো, ম্যাজিকের মতো সহজ করে দিচ্ছি... ✨";
         let charIndex = 0;
         const aiTextContainer = document.getElementById("aiText");
@@ -444,7 +1069,7 @@
         }, {threshold: 0.2});
         aiObserver.observe(aiSection);
 
-        // CHATBOT LOGIC
+        // LANDING PAGE: CHATBOT SYSTEM
         function toggleChat() {
             const chat = document.getElementById("chatBot");
             chat.style.display = (chat.style.display === "none" || chat.style.display === "") ? "flex" : "none";
@@ -471,7 +1096,6 @@
             const text = input.value.trim();
             if (text === "") return;
 
-            // User Message
             const userDiv = document.createElement("div");
             userDiv.className = "msg user-msg";
             userDiv.textContent = text;
@@ -480,7 +1104,6 @@
             input.value = "";
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Bot Response Simulation
             setTimeout(() => {
                 const botDiv = document.createElement("div");
                 botDiv.className = "msg bot-msg";
@@ -507,7 +1130,158 @@
             if (e.key === "Enter") sendMessage();
         });
 
-        /* NEW CARTOON 3D BUBBLE ANMATION */
+        // LOGIN VALIDATION ENGINE (Redirects to Dynamic Dashboard View)
+        function handleLogin(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById("email").value.trim();
+            const passwordInput = document.getElementById("password").value;
+            
+            const alertSuccess = document.getElementById("alertSuccess");
+            const alertDanger = document.getElementById("alertDanger");
+
+            alertSuccess.classList.remove("show");
+            alertDanger.classList.remove("show");
+
+            if (emailInput === "admin@admin" && passwordInput === "Admin") {
+                alertSuccess.classList.add("show");
+                setTimeout(() => {
+                    alertSuccess.classList.remove("show");
+                    showPage('dashboard'); // Triggers Full Cyber Dashboard View
+                }, 1500);
+            } else {
+                alertDanger.classList.add("show");
+                setTimeout(() => {
+                    alertDanger.classList.remove("show");
+                }, 3000);
+            }
+        }
+
+        // DASHBOARD SYSTEM: TAB SWITCHING
+        function switchTab(tabId, element) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active-tab'));
+            
+            document.getElementById(tabId).classList.add('active-tab');
+
+            if(element) {
+                const menuItems = document.querySelectorAll('.menu-list li');
+                menuItems.forEach(item => item.classList.remove('active'));
+                element.classList.add('active');
+            }
+
+            const titles = {
+                'dashboard': 'কোর হাব ড্যাশবোর্ড',
+                'courses': '📚 কোয়ান্টাম курс ম্যাট্রিক্স',
+                'users': '👥 নিউরাল ইউজার ডাটা',
+                'chat': '💬 লাইভ টেলিপ্যাথি চ্যাট',
+                'settings': '⚙️ কোর সিস্টেম কনফিগ'
+            };
+            document.getElementById('page-title').innerText = titles[tabId];
+            document.getElementById('sidebar').classList.remove('open');
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        // DASHBOARD SYSTEM: COURSE ENGINE
+        function addCourse(event) {
+            event.preventDefault();
+            const name = document.getElementById('courseName').value;
+            const enrollment = document.getElementById('courseEnrollment').value;
+            const status = document.getElementById('courseStatus').value;
+            
+            const badgeClass = status === 'আপকামিং' ? 'status-badge upcoming' : 'status-badge';
+
+            const mainTable = document.getElementById('main-course-table').getElementsByTagName('tbody')[0];
+            const newRow = mainTable.insertRow();
+            newRow.innerHTML = `<td>${name}</td><td>${parseInt(enrollment).toLocaleString()} জন</td><td><span class="${badgeClass}">${status}</span></td><td><button class="action-btn btn-danger" onclick="deleteRow(this)">রিমুভ</button></td>`;
+
+            if(status === 'চলমান') {
+                const dashTable = document.getElementById('dashboard-course-table').getElementsByTagName('tbody')[0];
+                const dashRow = dashTable.insertRow();
+                dashRow.innerHTML = `<td>${name}</td><td>${parseInt(enrollment).toLocaleString()} জন</td><td><span class="status-badge">সক্রিয়</span></td><td><button class="action-btn" onclick="switchTab('courses')">ম্যানেজ</button></td>`;
+            }
+
+            const totalEl = document.getElementById('totalEnrollments');
+            let total = parseInt(totalEl.innerText.replace(/,/g, ''));
+            totalEl.innerText = (total + parseInt(enrollment)).toLocaleString();
+
+            document.getElementById('course-form').reset();
+        }
+
+        function deleteRow(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        // DASHBOARD SYSTEM: FILTER USERS
+        function filterUsers() {
+            const input = document.getElementById('userSearch').value.toUpperCase();
+            const table = document.getElementById('user-table');
+            const tr = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < tr.length; i++) {
+                let tdName = tr[i].getElementsByTagName('td')[0];
+                let tdBatch = tr[i].getElementsByTagName('td')[1];
+                if (tdName || tdBatch) {
+                    let txtValueName = tdName.textContent || tdName.innerText;
+                    let txtValueBatch = tdBatch.textContent || tdBatch.innerText;
+                    if (txtValueName.toUpperCase().indexOf(input) > -1 || txtValueBatch.toUpperCase().indexOf(input) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        // DASHBOARD SYSTEM: CHAT HUB
+        function sendAdminReply() {
+            const msg = document.getElementById('adminReplyInput').value;
+            if(!msg.trim()) return;
+            appendChatMessage('👑 সুপ্রীম মেন্টর (অ্যাডমিন)', `"${msg}"`);
+            document.getElementById('adminReplyInput').value = '';
+        }
+
+        function triggerTemplate(msg) {
+            appendChatMessage('👑 সুপ্রীম মেন্টর (অ্যাডমিন)', `"${msg}"`);
+        }
+
+        function appendChatMessage(name, text) {
+            const logs = [document.getElementById('main-chat-log'), document.getElementById('dashboard-chat-log')];
+            logs.forEach(log => {
+                if(!log) return;
+                const item = document.createElement('div');
+                item.className = 'chat-log-item';
+                item.style.borderColor = 'var(--secondary-db)';
+                item.innerHTML = `<div class="user-name">${name} <span style="font-size:0.75rem; color:var(--text-muted)">এখনই</span></div><div class="user-msg">${text}</div>`;
+                log.insertBefore(item, log.firstChild);
+            });
+        }
+
+        // REALTIME GRAPH & LIVE COUNTER REFRESH LOOP
+        setInterval(() => {
+            if(document.getElementById('page-dashboard').style.display === 'flex') {
+                const activeUsersEl = document.getElementById("activeUsers");
+                let currentUsers = parseInt(activeUsersEl.innerText.replace(/,/g, ''));
+                currentUsers += Math.floor(Math.random() * 7) - 3;
+                activeUsersEl.innerText = currentUsers.toLocaleString();
+
+                const aiSessionsEl = document.getElementById("aiSessions");
+                let currentSessions = parseInt(aiSessionsEl.innerText);
+                currentSessions += Math.floor(Math.random() * 2);
+                aiSessionsEl.innerText = currentSessions;
+
+                const bars = document.querySelectorAll('.bar');
+                bars.forEach(bar => {
+                    const newHeight = Math.floor(Math.random() * 85) + 15;
+                    bar.style.height = `${newHeight}%`;
+                });
+            }
+        }, 3000);
+
+        // BACKGROUND DYNAMIC BUBBLE GENERATION
         const canvas = document.getElementById("particles"),
               ctx = canvas.getContext("2d");
         
@@ -518,7 +1292,7 @@
         resize();
         window.addEventListener('resize', resize);
 
-        let bubbleCount = window.innerWidth < 768 ? 15 : 35;
+        let bubbleCount = window.innerWidth < 768 ? 15 : 30;
         const cartoonColors = ['rgba(255, 94, 98, 0.25)', 'rgba(255, 188, 0, 0.25)', 'rgba(108, 92, 231, 0.2)', 'rgba(34, 211, 238, 0.25)'];
         
         let bubbles = Array.from({length: bubbleCount}, () => ({
@@ -560,4 +1334,5 @@
         drawBubbles();
     </script>
 </body>
+
 </html>
